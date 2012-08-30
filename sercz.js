@@ -110,14 +110,14 @@ var data=[
 
 ];
 
-function getStorageData() {
+function customMailtoUrl() {
   if (window.localStorage == null)
     return "";
-  if (window.localStorage.number == null)
+  if (window.localStorage.customMailtoUrl == null)
   //no options specified use default 
-    //window.localStorage.getStorageData = "filmweb";
+    //window.localStorage.customMailtoUrl = "filmweb";
 	return "";
-  return "1";
+  return window.localStorage.customMailtoUrl;
 }
 //tests
 
@@ -133,14 +133,14 @@ function getLocalStorage() {
 function myClick(info, tab) {
 var i;
 
-	console.log("LS:" + getStorageData() );
+	console.log("LS:" + customMailtoUrl() );
 	//console.log("item" + info.menuItemId + " was clicked and elem is");
 	//console.log("info: " + JSON.stringify(info));
     //console.log("tab: " + JSON.stringify(tab));
 	for(i = 0; i < data[0].length; i++) {
 	    if(info.menuItemId == data[4][i]) {
 		 var overall = data[2][i] + data[1][i] + info.selectionText + data[3][i];
-		 //chrome.tabs.create({ "url": overall});
+		 chrome.tabs.create({ "url": overall});
 	    }	
 	}
  

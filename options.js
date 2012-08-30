@@ -111,20 +111,21 @@ var data=[
 ];
 
 function toggle(radioButton) {
-    console.log("src elem:" + radioButton.srcElement.id + "target " + radioButton.target.id );
-	if (document.getElementById(radioButton.srcElement.id).checked) {
-			window.localStorage[radioButton.srcElement.id] = 1;
-	} else {
-		window.localStorage[radioButton.srcElement.id] = 0;
-	}
-  
-
+  if (window.localStorage == null) {
+    alert('Local storage is required for changing providers');
+    return;
+  }
+  if (document.getElementById('filmweb').checked) {
+    window.localStorage.customMailtoUrl = "filmweb";
+  } else {
+    window.localStorage.customMailtoUrl = "torr";
+  }
 }
 
 function main() {
   if (window.localStorage == null) {
     alert("LocalStorage must be enabled for changing options.");
-    document.getElementById(0).disabled = true;
+    document.getElementById('default').disabled = true;
     document.getElementById('filmweb').disabled = true;
     return;
   }
@@ -132,18 +133,14 @@ function main() {
 
   // Default handler is checked. If we've chosen another provider, we must
   // change the checkmark.
-  if (window.localStorage.customMailtoUrl == 1)
+  if (window.localStorage.customMailtoUrl == filmweb)
     document.getElementById('filmweb').checked = true;
 	
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   main();
-  var i;
-  for(i = 0; i < data[0].length; i++) {
-	document.getElementById(i).addEventListener('click', toggle);
-	//console.log(document.querySelector(i).addEventListener('click', toggle));
-  }
- // document.querySelector('#filmweb').addEventListener('click', toggle);
+  document.querySelector('#default').addEventListener('click', toggle);
+  document.querySelector('#filmweb').addEventListener('click', toggle);
 });
 
